@@ -3,6 +3,7 @@ import 'colors';
 import express, { Application, json, urlencoded } from "express";
 import cors from 'cors';
 import { router } from './routes';
+import { connectMe } from './utils/mongo.connection';
 
 // Settings
 const app: Application = express();
@@ -18,8 +19,15 @@ app.use( router );
 
 // Start Server
 app.listen( app.get( `PORT` ), () => {
-    //console.clear();
-    console.log( `============================`.blue );
-    console.log( `Server started on port: ${ app.get( 'PORT' ) }`.cyan );
-    console.log( `============================`.blue );
+    console.clear();
+    connectMe()
+    .then((res) => {
+        console.log( `============================`.blue );
+        console.log( `Server started on port: ${ app.get( 'PORT' ) }`.cyan );
+        console.log( `MongoDB is connected: ${ res.connection.port }`.cyan );
+        console.log( `============================`.blue );
+    })
+    .catch((ex) => {
+        throw new Error( `Error, connection failed: ${ ex }` );
+    });
 });
