@@ -1,20 +1,19 @@
-import { Router } from 'express';
+import { Router } from "express";
 import { readdirSync } from 'fs';
 
-const router: Router = Router();
-const PATH_ROUTES = `${ __dirname }`;
+let router: Router = Router();
+const PATH_ROUTER = `${ __dirname }`;
 
-const cleanFileName = ( fileName: string ): string => {
+const cleanName = ( fileName: string ): string => {
     return fileName.split( '.' )[0];
 }
 
-readdirSync( PATH_ROUTES ).filter(( fileName ) => {
-    const nameWithOutExt = cleanFileName( fileName );
-    if ( nameWithOutExt !== 'index' ) {
-        console.log( `Route: ${ nameWithOutExt }` );
-        import( `./${ nameWithOutExt }` )
+readdirSync( PATH_ROUTER ).filter(( fileName ) => {
+    let nameWithOutExtention: string = cleanName( fileName );
+    if ( nameWithOutExtention !== 'index' ) {
+        import( `./${ nameWithOutExtention }` )
         .then(( module ) => {
-            router.use( `/api/${ nameWithOutExt }`, module.router );
+            router.use( `/api/${ nameWithOutExtention }`, module.router );
         });
     }
 });
