@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { createPlaylistInUser, getOnePlaylistOfUser, getUserPlaylists, getUsers, createSongPlaylistInUser } from "../../services/user.service";
+import { createPlaylistInUser, getOnePlaylistOfUser, getUserPlaylists, getUsers, createSongPlaylistInUser } from "../services/user.service";
 import { handleHttp } from "../middlewares/error.handle";
 
 const getAll = async ( req: Request, res: Response ) => {
