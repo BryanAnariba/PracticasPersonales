@@ -1,15 +1,15 @@
 import { Router } from "express";
 import { readdirSync } from 'fs';
 
-let router: Router = Router();
-const PATH_ROUTER = `${ __dirname }`;
+const router: Router = Router();
+const PATH_ROUTES = `${ __dirname }`;
 
 const cleanName = ( fileName: string ): string => {
     return fileName.split( '.' )[0];
 }
 
-readdirSync( PATH_ROUTER ).filter(( fileName ) => {
-    let nameWithOutExtention: string = cleanName( fileName );
+readdirSync( PATH_ROUTES ).filter(( fileName ) => {
+    const nameWithOutExtention = cleanName( fileName );
     if ( nameWithOutExtention !== 'index' ) {
         import( `./${ nameWithOutExtention }` )
         .then(( module ) => {
@@ -17,6 +17,7 @@ readdirSync( PATH_ROUTER ).filter(( fileName ) => {
         });
     }
 });
+
 
 export {
     router

@@ -1,4 +1,5 @@
-import { Request, Response, Router } from 'express';
+import { Router } from 'express';
+import { getAlbumsFromArtist, getArtists } from '../controllers/artist.controller';
 
 const router: Router = Router();
 
@@ -8,10 +9,8 @@ const router: Router = Router();
     2 - Obtener albumes con canciones al seleccionar un artista
 */
 
-router.get( '', ( req: Request, res: Response ) => {
-    res.status( 200 ).json( { status: 200, data: 'artists is working' } );
-    
-});
+router.get( '', getArtists  );
+router.get( '/:artistId/albumes', getAlbumsFromArtist  );
 
 export {
     router
