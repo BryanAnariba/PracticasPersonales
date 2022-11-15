@@ -1,0 +1,19 @@
+<button [ngClass]="{ 'disabled': disabledButton }" class="btn btn-danger" (click)="onChangeColor('danger')">
+  Color Rojo
+</button>
+&nbsp;
+<button [ngClass]="{ 'disabled': disabledButton }" class="btn btn-success" (click)="onChangeColor('success')">
+  Color Verde
+</button>
+&nbsp;
+<button [class]="{ 'disabled': disabledButton }" class="btn btn-primary" (click)="onChangeColor('primary')">
+  Color Azul
+</button>
+<br>
+<button class="btn btn-secondary" (click)="onChangeDisabled()">
+  Activar/Desactivar Botones
+</button>
+
+<h3 [class]="textColor">
+  Texto cambia de color:
+</h3>
