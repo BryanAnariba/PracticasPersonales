@@ -11,7 +11,9 @@ describe('AlbumComponent', () => {
       declarations: [ AlbumComponent ]
     })
     .compileComponents();
+  });
 
+  beforeEach(() => {
     fixture = TestBed.createComponent(AlbumComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

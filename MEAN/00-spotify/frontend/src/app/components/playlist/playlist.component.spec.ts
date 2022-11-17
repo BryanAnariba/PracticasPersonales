@@ -11,7 +11,9 @@ describe('PlaylistComponent', () => {
       declarations: [ PlaylistComponent ]
     })
     .compileComponents();
+  });
 
+  beforeEach(() => {
     fixture = TestBed.createComponent(PlaylistComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

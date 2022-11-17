@@ -1,4 +1,6 @@
-/* You can add global styles to this file, and also import other style files */
+@import '~bootstrap/scss/bootstrap';
+
+// SPOTIFY STYLES
 body {
   font-size: .875rem;
   color: #ffffff;
@@ -182,4 +184,9 @@ hr {
 
 .modal-footer{
   border-top: 1px solid #dee2e61f;
+}
+
+// CAMBIESITO REALIZADO POR MI YA QUE POR ALGUNA RAZON DE ANGULAR 9 AL 13 Y 14 ME PEGA ESTA PARTE AL SIDEBAR
+main {
+  margin-left: auto;
 }
