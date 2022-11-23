@@ -5,7 +5,7 @@ export const WorkoutForm = () => {
     const [ title, setTitle ] = useState( '' );
     const [ load, setLoad ] = useState( 0 );
     const [ reps, setReps ] = useState( 0 );
-    const [ error, setError ] = useState( '' );
+    const [ errors, setErrors ] = useState( null );
 
     const handleSubmit = async ( e ) => {
         e.preventDefault();
@@ -14,22 +14,20 @@ export const WorkoutForm = () => {
             load: load,
             reps: reps,
         };
+
         try {
             const response = await createWotkOut( wotkOut );
             const jsonResponse = await response.json();
-            
-            console.log( Object.keys(jsonResponse.error.errors) );
+            console.log(jsonResponse.error.message);
             if ( !jsonResponse.ok ) {
-
-                setError( jsonResponse.error.errors.title );
+                setErrors( jsonResponse.error.message );
             } else {
                 setTitle( '' );
                 setLoad( 0 );
                 setReps( 0 );
-            }
-            
+            }    
         } catch ( error ) {
-            console.log( error );
+            console.error( error );
         }
     }
 
@@ -42,12 +40,12 @@ export const WorkoutForm = () => {
             <input type="number" name="load" id="load" onChange={ (e) => setLoad( e.target.value ) } value={ load } />
             <label htmlFor="reps">Reps: </label>
             <input type="number" name="reps" id="reps" onChange={ (e) => setReps( e.target.value ) } value={ reps } />
-            <input type="submit" value="Create WorkOut" />
+            <button type="submit">Create WorkOut</button>
             {
-                ( error && 
+                ( errors && 
                     <div className="error">
                         {
-                            JSON.stringify( error )
+                            errors
                         }
                     </div>
                 )

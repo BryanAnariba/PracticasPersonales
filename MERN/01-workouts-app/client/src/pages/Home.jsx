@@ -12,7 +12,7 @@ export const Home = () => {
         .then( jsonResponse => {
             const { status, data } = jsonResponse;
             //console.log( { status, data } );
-            if ( jsonResponse.ok ) {
+            if ( jsonResponse.status === 200 ) {
                 setWorkOuts( data );
                 console.log( 'workOuts: ', data );
             }
