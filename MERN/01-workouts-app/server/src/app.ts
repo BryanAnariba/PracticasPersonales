@@ -20,10 +20,10 @@ app.use( IndexRoutes );
 // START SERVER
 app.listen( app.get( 'PORT' ), async () => {
     console.clear();
-    console.log( `============================`.cyan );
+    console.log( `===================================================================`.cyan );
     console.log( `Server started on port: ${ app.get( 'PORT' ) }`.bgMagenta );
     await connectMe();
-    console.log( `============================`.cyan );
+    console.log( `===================================================================`.cyan );
 });
 
 

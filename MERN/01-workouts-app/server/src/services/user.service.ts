@@ -13,3 +13,7 @@ export const existsUser = async ( email: string ): Promise<boolean> => {
 export const createUser = async ( user: IUser ): Promise<IUser> => {
     return await UserModel.create( user );
 }
+
+export const existsUseByEmail = async ( email: string ): Promise<IUser | null> => {
+    return await UserModel.findOne({ email: email });
+}
