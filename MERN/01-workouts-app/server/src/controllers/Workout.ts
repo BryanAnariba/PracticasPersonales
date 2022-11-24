@@ -8,7 +8,8 @@ export const get = async ( req: Request, res: Response ): Promise<Response | IOk
     try {
         const workOuts: IWorkout[] = await getAllWorkOuts();
         if ( workOuts.length === 0 ) {
-            return res.status( 200 ).json({ status: 200, data: 'Work Outs Not Found' });
+            //return res.status( 200 ).json({ status: 200, data: 'Work Outs Not Found' });
+            return res.status( 200 ).json({ status: 200, data: [] });
         } else {
             return res.status( 200 ).json({ status: 200, data: workOuts });
         }
@@ -22,7 +23,8 @@ export const getOne = async ( req: Request, res: Response ): Promise<Response> =
         let { workoutId } = req.params;
         const workOut: IWorkout | null = await getOneWorkOut( workoutId );
         if ( !workoutId ) {
-            return res.status( 200 ).json({ status: 200, data: 'Work Out Not Found' });
+            //return res.status( 200 ).json({ status: 200, data: 'Work Out Not Found' });
+            return res.status( 200 ).json({ status: 200, data: [] });
         } else {
             return res.status( 200 ).json({ status: 200, data: workOut });
         }
