@@ -6,7 +6,7 @@
 body {
     background: #f1f1f1;
     margin: 0;
-    font-family: 'Poppins';
+    font-family: 'Roboto', sans-serif;
 }
 
 header {
@@ -99,4 +99,25 @@ div.error {
     color: var(--error);
     border-radius: 4px;
     margin: 20px 0;
+}
+
+.error {
+    border: 1px solid var( --error );
+}
+
+nav {
+    display: flex;
+    align-items: center;
+}
+
+nav a { 
+    margin-left: 10px;
+}
+
+form.signup, form.login {
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 4px;
 }

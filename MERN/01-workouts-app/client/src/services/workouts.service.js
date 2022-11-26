@@ -15,3 +15,9 @@ export const createWotkOut = async ( workOut ) => {
         body: JSON.stringify( workOut ),
     });
 }
+
+export const deleteWorkout = async ( workOutId ) => {
+    return await fetch( `${ API }/${ workOutId }`,{
+        method: 'DELETE'
+    });
+}

@@ -11,5 +11,8 @@ export const getOneWorkOut = async ( workOutId: string ): Promise<IWorkout | nul
 
 export const createWorkOut = async ( workOut: IWorkout ): Promise<IWorkout> => {
     return await WorkOutModel.create( workOut );
+}
 
+export const deleteWorkOut = async ( workOutId: string ) => {
+    return await WorkOutModel.findOneAndDelete({ _id: workOutId });
 }

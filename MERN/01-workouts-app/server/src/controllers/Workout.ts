@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { IOkResponse } from "../interface/iResponses";
 import { IWorkout } from "../interface/IWorkout";
-import { createWorkOut, getAllWorkOuts, getOneWorkOut } from "../services/workout.service";
+import { createWorkOut, deleteWorkOut, getAllWorkOuts, getOneWorkOut } from "../services/workout.service";
 import { handleHttp } from "../utils/error.handle";
 
 export const get = async ( req: Request, res: Response ): Promise<Response | IOkResponse> => {
@@ -35,7 +35,25 @@ export const getOne = async ( req: Request, res: Response ): Promise<Response> =
 
 export const createOne = async ( req: Request, res: Response ): Promise<Response | IOkResponse> => {
     const { title, load, reps }: IWorkout = req.body;
+    let emptyFields: string[] = [];
     try {
+
+        if ( !title || title.trim() === '' ) {
+            emptyFields.push( 'Title' );
+        }
+
+        if ( !load || load === 0 ) {
+            emptyFields.push( 'Loads' )
+        }
+
+        if ( !reps || reps === 0 ) {
+            emptyFields.push( 'Reps' );
+        }
+
+        if ( emptyFields.length > 0 ) {
+            return handleHttp( 400, res, 'HTTP_WORKOUT_ERROR', { error: 'Please check this fields', emptyFields } );    
+        }
+
         const workOutResponse: IWorkout = await createWorkOut({ title, load, reps });
         return res.status( 201 ).json({ 
             status: 201,
@@ -54,9 +72,13 @@ export const editOne = async ( req: Request, res: Response ): Promise<Response> 
     }
 }
 
-const deleteOne = async ( req: Request, res: Response ): Promise<Response> => {
+export const deleteOne = async ( req: Request, res: Response ): Promise<Response> => {
     try {
-        return res.status( 200 ).json({ status: 200, data: 'That is workin' });
+        const workOutResponse = await deleteWorkOut( req.params.workoutId );
+        return res.status( 200 ).json({ 
+            status: 200,
+            data: workOutResponse,
+        });
     } catch ( error ) {
         return handleHttp( 500, res, 'HTTP_WORKOUT_ERROR', error );
     }

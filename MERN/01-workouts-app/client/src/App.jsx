@@ -1,7 +1,14 @@
 // IMPORTACION DE RUTAS
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Home } from './pages/Home';
+
+//  COMPONENTES
 import { Nabvar } from './components/Nabvar';
+
+// RUTAS
+import { Home } from './pages/Home';
+import { Login } from './pages/Login';
+import { Signup } from './pages/Signup';
+
 
 import './index.css';
 
@@ -13,6 +20,8 @@ function App() {
       <div className="pages">
         <Routes>
           <Route path='/' element={ <Home /> }/>
+          <Route path='/sign-in' element={ <Login /> } />
+          <Route path='/sign-up' element={ <Signup/> }/>
         </Routes>
       </div>
     </BrowserRouter>
