@@ -4,6 +4,7 @@ import { IWorkout } from "../interface/IWorkout";
 const workOutSchema = new Schema<IWorkout>({
     userId: {
         type: String,
+        required: [ true, 'User is required' ],
         default: '',
     },
     title: {

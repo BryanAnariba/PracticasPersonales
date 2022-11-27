@@ -1,14 +1,22 @@
 import React from 'react';
-import { useWorkoutContext } from '../hooks/useWorkoutContext';
-import { deleteWorkout } from '../services/workouts.service';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import { deleteWorkout } from '../services/workouts.service';
+
+import { useAuthContext } from '../hooks/useAuthContext';
+import { useWorkoutContext } from '../hooks/useWorkoutContext';
+
 export const WorkoutDetails = ({ workOut }) => {
     const { dispatch } = useWorkoutContext();
+    const { user } = useAuthContext();
 
     const handleDelete = async ( workOutId ) => {
         console.log('WorkOutId: ', { workOutId });
-        const response = await deleteWorkout( workOutId );
+        if ( !user ) {
+            return
+        }
+        const response = await deleteWorkout( workOutId, user.token );
         const jsonResponse = await response.json();
         if (jsonResponse.status === 200 ) {
             dispatch({

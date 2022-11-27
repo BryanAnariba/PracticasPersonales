@@ -17,3 +17,7 @@ export const createUser = async ( user: IUser ): Promise<IUser> => {
 export const existsUseByEmail = async ( email: string ): Promise<IUser | null> => {
     return await UserModel.findOne({ email: email });
 }
+
+export const findUserById = async ( userId: string ): Promise<IUser | null> => {
+    return await UserModel.findOne({ _id: userId }).select( '_id' );
+}

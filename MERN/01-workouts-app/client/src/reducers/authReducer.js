@@ -6,6 +6,8 @@ export const authReducer = ( state, action ) => {
             return { user: action.payload }; // SOLO SI ES LOGIN Y ES EXITOSO GUARDAR EN ESTADO
         case 'SIGN_UP':
             return { user: null } // SI ES REGISTRO NO PONER USUARIO
+        case 'LOG_OUT':
+            return { user: null };
         default: 
             return state;
     };

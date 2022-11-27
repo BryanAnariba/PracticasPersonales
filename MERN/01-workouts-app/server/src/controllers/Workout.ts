@@ -1,12 +1,14 @@
 import { Request, Response } from "express";
+import { IRequestExtend } from "../interface/IRequestExtend";
 import { IOkResponse } from "../interface/iResponses";
 import { IWorkout } from "../interface/IWorkout";
 import { createWorkOut, deleteWorkOut, getAllWorkOuts, getOneWorkOut } from "../services/workout.service";
 import { handleHttp } from "../utils/error.handle";
 
-export const get = async ( req: Request, res: Response ): Promise<Response | IOkResponse> => {
+export const get = async ( req: IRequestExtend, res: Response ): Promise<Response | IOkResponse> => {
     try {
-        const workOuts: IWorkout[] = await getAllWorkOuts();
+        const userId: string = `${req.user}`;
+        const workOuts: IWorkout[] = await getAllWorkOuts( userId );
         if ( workOuts.length === 0 ) {
             //return res.status( 200 ).json({ status: 200, data: 'Work Outs Not Found' });
             return res.status( 200 ).json({ status: 200, data: [] });
@@ -33,7 +35,7 @@ export const getOne = async ( req: Request, res: Response ): Promise<Response> =
     }
 }
 
-export const createOne = async ( req: Request, res: Response ): Promise<Response | IOkResponse> => {
+export const createOne = async ( req: IRequestExtend, res: Response ): Promise<Response | IOkResponse> => {
     const { title, load, reps }: IWorkout = req.body;
     let emptyFields: string[] = [];
     try {
@@ -54,7 +56,7 @@ export const createOne = async ( req: Request, res: Response ): Promise<Response
             return handleHttp( 400, res, 'HTTP_WORKOUT_ERROR', { error: 'Please check this fields', emptyFields } );    
         }
 
-        const workOutResponse: IWorkout = await createWorkOut({ title, load, reps });
+        const workOutResponse: IWorkout = await createWorkOut({ title: title, load: load, reps: reps, userId: `${ req.user }` });
         return res.status( 201 ).json({ 
             status: 201,
             data: workOutResponse,

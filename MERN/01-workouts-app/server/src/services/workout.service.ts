@@ -1,8 +1,8 @@
 import { IWorkout } from "../interface/IWorkout";
 import { WorkOutModel } from "../models/Workout"
 
-export const getAllWorkOuts = async (): Promise<IWorkout[]> => {
-    return WorkOutModel.find();
+export const getAllWorkOuts = async ( userId: string ): Promise<IWorkout[]> => {
+    return WorkOutModel.find({ userId: userId });
 }
 
 export const getOneWorkOut = async ( workOutId: string ): Promise<IWorkout | null> => {

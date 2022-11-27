@@ -1,9 +1,11 @@
 import React from 'react';
 import { useState } from 'react';
+import { useAuthContext } from '../hooks/useAuthContext';
 import { useWorkoutContext } from '../hooks/useWorkoutContext';
 import { createWotkOut } from '../services/workouts.service';
 export const WorkoutForm = () => {
     const { dispatch } = useWorkoutContext();
+    const { user } = useAuthContext();
 
     const [ title, setTitle ] = useState( '' );
     const [ load, setLoad ] = useState( 0 );
@@ -13,39 +15,43 @@ export const WorkoutForm = () => {
 
     const handleSubmit = async ( e ) => {
         e.preventDefault();
-        const wotkOut = {
-            title: title,
-            load: load,
-            reps: reps,
-        };
+        if ( !user ) {
+            setErrors( 'Necesitas loguearte loco!!' );
+        } else {
+            const wotkOut = {
+                title: title,
+                load: load,
+                reps: reps,
+            };
 
-        try {
-            const response = await createWotkOut( wotkOut );
-            const jsonResponse = await response.json();
-            if ( jsonResponse.status !== 201 ) {
-                // estos errores o manejo de errores es para las validaciones que se aplican en el squema de mongoose
-                //console.log(jsonResponse.error.message);
-                //setErrors( jsonResponse.error.message );
+            try {
+                const response = await createWotkOut( wotkOut, user.token );
+                const jsonResponse = await response.json();
+                if ( jsonResponse.status !== 201 ) {
+                    // estos errores o manejo de errores es para las validaciones que se aplican en el squema de mongoose
+                    //console.log(jsonResponse.error.message);
+                    //setErrors( jsonResponse.error.message );
 
-                // estas son las que hicimos a mano
-                console.log(jsonResponse.error);
-                setErrors( jsonResponse.error.error );
-                setEmptyFields( jsonResponse.error.emptyFields );
-            } else {
-                setErrors( null );
-                //console.log( jsonResponse );
-                setTitle( '' );
-                setLoad( 0 );
-                setReps( 0 );
-                setEmptyFields( [] );
-                setErrors( null );
-                dispatch({
-                    type: 'CREATE_WORKOUT',
-                    payload: jsonResponse.data
-                });
-            }       
-        } catch ( error ) {
-            console.error( error );
+                    // estas son las que hicimos a mano
+                    console.log(jsonResponse.error);
+                    setErrors( jsonResponse.error.error );
+                    setEmptyFields( jsonResponse.error.emptyFields );
+                } else {
+                    setErrors( null );
+                    //console.log( jsonResponse );
+                    setTitle( '' );
+                    setLoad( 0 );
+                    setReps( 0 );
+                    setEmptyFields( [] );
+                    setErrors( null );
+                    dispatch({
+                        type: 'CREATE_WORKOUT',
+                        payload: jsonResponse.data
+                    });
+                }       
+            } catch ( error ) {
+                console.error( error );
+            }
         }
     }
 
