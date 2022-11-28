@@ -1,0 +1,1 @@
+INSERT INTO STATUS( statusId, statusDescription, statusCreatedAt ) VALUES  ( 1, 'Active', GETDATE() ), ( 2, 'Inactive', GETDATE() );

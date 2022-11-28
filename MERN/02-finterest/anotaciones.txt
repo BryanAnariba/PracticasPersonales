@@ -1,0 +1,53 @@
+INSTALAR TYPESCRIPT DE MANERA GLOBAL    
+    npm install typescript -g
+INSTALAR TS-NODE DE MANERA GLOBAL
+    npm install ts-node -g
+INSTALAR NODEMON DE MANERA GLOBAL
+    npm install nodemon -g
+INICIALIZAMOS PROYECTO
+    tsc --init
+    npm init -yes
+DEPENDENCIAS
+    npm install express cors dotenv multer mssql --save
+DEV DEPENDENCIES
+    npm install @types/express @types/cors @types/dotenv @types/multer @types/multer @types/mssql -D
+
+GENERAR BUILD DE PRODUCCION
+npm run build
+
+
+
+-- TABLAS
+    Person
+        personId => int
+        firstName => Varchar(80)
+        lastName => Varchar(80)
+        createdAt => datetime default today
+        updatedAt => datetime default null 
+        personStatus => statusId
+
+    User
+        userId = personId
+        email = Varchar(80)
+        password = Text(500)
+
+    Images
+        imageId => int
+        userId => int
+        title => Varchar(80)
+        imageDescription => Varchar(255)
+        fileName => Varchar(255)
+        path => Varchar(255)
+        originalName => Varchar(255)
+        mimeType => Varchar(255)
+        size => numeric(18.00)
+        createdAt => datetime dedfault today
+
+    Status 
+        statusId
+        statusDescription
+        statusCreatedAt
+
+COMO GENERAR EL SCRIPT DE LA BASE DE DATOS
+click derecho en la base de datos/ task / Generate Scripts
+
