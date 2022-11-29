@@ -2,7 +2,6 @@ import 'dotenv/config';
 import 'colors';
 import cors from 'cors';
 import express, { Application, urlencoded, json } from 'express';
-import { connection } from './database/SqlServerConnection';
 import { IndexRoutes } from './routes';
 
 
@@ -40,7 +39,6 @@ class Server {
             await this.app.listen( this.app.get( `PORT` ) );
             console.log(`============================`.magenta);
             console.log( `Server started on port: ${ this.app.get( 'PORT' ) }`.cyan );
-            await connection();
             console.log(`============================`.magenta);
         } catch ( error ) {
             throw new Error( `Starting server failed:L ${ error }`.red );
