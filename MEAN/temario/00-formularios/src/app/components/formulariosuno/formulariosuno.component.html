@@ -1,0 +1,69 @@
+<div class="container">
+  <div class="row">
+    <div class="alert alert-primary" role="alert">
+      <div class="col-lg-6 mx-auto">
+        {{ persona | json }}
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-6 mx-auto">
+      <div class="card">
+        <div class="card-header text-white bg-dark">
+          <h3>Formulario</h3>
+        </div>
+        <form (submit)="handleSubmit()">
+          <div class="card-body">
+            <div class="mb-2">
+              <label for="nombre" class="form-label">Nombre: </label>
+              <input
+                type="text"
+                name="nombre"
+                id="nombre"
+                placeholder="Escriba un Nombre"
+                class="form-control"
+                [(ngModel)]="persona.nombre"
+                required
+                #nombre="ngModel"
+              >
+            </div>
+            <div class="alert alert-danger mt-2" role="alert" [hidden]="nombre.valid || nombre.pristine">
+              <div class="col-lg-6 mx-auto">
+                El Nombre es Obligatorio
+              </div>
+            </div>
+            <div class="mb-2">
+              <label for="edad" class="form-label">Edad: </label>
+              <input
+                type="number"
+                class="form-control"
+                name="edad"
+                id="edad"
+                placeholder="Digite Edad"
+                [(ngModel)]="persona.edad"
+                required
+                #edad="ngModel"
+              >
+            </div>
+            <div class="alert alert-danger mt-2" role="alert" [hidden]="edad.valid || edad.pristine || edad.value > 1">
+              <div class="col-lg-6 mx-auto">
+                La Edad es Obligatorio
+              </div>
+            </div>
+          </div>
+          <div class="mb-2 text-center">
+            <button type="submit" class="btn btn-primary">Enviar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{ nombre.errors | json }}
+<hr>
+{{ nombre.valid | json }}
+<hr>
+{{ edad.errors | json }}
+<hr>
+{{ edad.valid | json }}
