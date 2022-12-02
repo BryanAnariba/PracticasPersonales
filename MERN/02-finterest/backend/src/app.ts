@@ -36,6 +36,7 @@ class Server {
 
     async startServer () {
         try {
+            console.clear();
             await this.app.listen( this.app.get( `PORT` ) );
             console.log(`============================`.magenta);
             console.log( `Server started on port: ${ this.app.get( 'PORT' ) }`.cyan );
