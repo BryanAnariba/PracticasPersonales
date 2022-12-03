@@ -12,6 +12,9 @@ import { NotFound } from './pages/auth/NotFound';
 
 // CONTEXT
 
+// STYLES
+import 'react-toastify/dist/ReactToastify.css';
+
 function App() {
   return (
     <BrowserRouter>
