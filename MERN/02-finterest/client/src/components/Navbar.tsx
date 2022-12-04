@@ -25,7 +25,7 @@ export const Navbar = () => {
                         <ul className="navbar-nav" id="nabvarLogin">
                             <li className="nav-item">
                                 <NavLink 
-                                    className='nav-link' 
+                                    className={({ isActive }) => { return isActive ? 'nav-link is-active' : 'nav-link' }}
                                     aria-current="page" 
                                     to='/images'
                                 >
@@ -42,7 +42,7 @@ export const Navbar = () => {
                         <ul className="navbar-nav" id="nabvarLogin">
                             <li className="nav-item">
                                 <NavLink 
-                                    className='nav-link' 
+                                    className={({ isActive }) => { return isActive ? 'nav-link is-active' : 'nav-link' }}
                                     to='/login'
                                 >
                                     Login
@@ -50,7 +50,7 @@ export const Navbar = () => {
                             </li>
                             <li className="nav-item">
                                 <NavLink 
-                                    className='nav-link' 
+                                    className={({ isActive }) => { return isActive ? 'nav-link is-active' : 'nav-link' }}
                                     aria-current="page" 
                                     to='/register'
                                 >
