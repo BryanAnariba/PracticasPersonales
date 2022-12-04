@@ -2,15 +2,14 @@ import { useState } from "react";
 import { useRegister } from "../../hooks/auth/useRegister";
 import { IPerson } from "../../interfaces/IPerson";
 
-import { ToastContainer, toast } from 'react-toastify';
-
 export const Register = () => {
   const [ firstName, setFirstName ] = useState<string>( '' );
   const [ lastName, setLastName ] = useState<string>( '' );
   const [ userEmail, setUserEmail ] = useState<string>( '' );
   const [ userPassword, setUserPassword ] = useState<string>( '' );
-  const { register, isLoading, error, status } = useRegister();
+  const { register, isLoading, error } = useRegister();
 
+  // @Asd.456
 
   const handleRegister = async ( e: React.FormEvent ) => {
     e.preventDefault();
@@ -24,19 +23,16 @@ export const Register = () => {
     //console.log( `User Data: `, registerData );
     await register( registerData );
 
-    if ( status === 200 || status === 201 ) {
+    if ( error === '' ) {
       setFirstName( '' );
       setLastName( '' );
       setUserEmail( '' );
       setUserPassword( '' );
-      toast.success( error )
-    } else {
-      toast.error( error );
     }
   }
 
   return (
-   <div className="container">
+    <div className="container">
       <div className="row">
         <div className="col-lg-6 mx-auto">
           <div className="card">
@@ -98,13 +94,17 @@ export const Register = () => {
               </div>
             </form>
             <div className="card-footer bg-primary">
-              {
-                <ToastContainer />
-              }
+                {
+                  ( error !== '' ) 
+                  &&
+                    <div className="alert alert-danger" role="alert">
+                      { error }
+                    </div>
+                }
             </div>
+          </div>
         </div>
       </div>
     </div>
-   </div>
   );
 };

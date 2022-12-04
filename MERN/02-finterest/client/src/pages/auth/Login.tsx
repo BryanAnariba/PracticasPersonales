@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { useLogin } from "../../hooks/auth/useLogin";
 import { IUser } from "../../interfaces/IUser";
 
 export const Login = () => {
   const [ userEmail, setUserEmail ] = useState<string>( '' );
   const [ userPassword, setUserPassword ] = useState<string>( '' );
+  const { login, isLoading, error } = useLogin();
 
   const handleLogin = async ( e: React.FormEvent ) => {
     e.preventDefault();
@@ -12,11 +14,16 @@ export const Login = () => {
       userPassword: userPassword
     };
 
-    console.log( `User Data: `, loginData );
+    //console.log( `User Data: `, loginData );
+    await login( loginData );
+    if ( error === '' ) {
+      setUserEmail( '' );
+      setUserPassword( '' );
+    }
   }
 
   return (
-   <div className="container">
+    <div className="container">
       <div className="row">
         <div className="col-lg-6 mx-auto">
           <div className="card">
@@ -55,11 +62,17 @@ export const Login = () => {
               </div>
             </form>
             <div className="card-footer bg-primary">
-
+              {
+                ( error !== '' )
+                &&
+                  <div className="alert alert-danger" role="alert">
+                    { error }
+                  </div>
+              }
             </div>
+          </div>
         </div>
       </div>
     </div>
-   </div>
   );
 };
