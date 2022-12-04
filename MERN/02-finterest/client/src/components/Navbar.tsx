@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useAuthContext } from '../hooks/auth/useAuthContext';
 import { useLogOut } from '../hooks/auth/useLogOut';
 export const Navbar = () => {
@@ -12,7 +12,9 @@ export const Navbar = () => {
     return (
         <nav className="navbar navbar-expand-lg bg-dark navbar-dark">
             <div className="container">
-                <Link className="navbar-brand" to='/'>Finterest</Link>
+                <NavLink className="navbar-brand" to='/'>
+                    Finterest
+                </NavLink>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
@@ -22,7 +24,13 @@ export const Navbar = () => {
                         ?
                         <ul className="navbar-nav" id="nabvarLogin">
                             <li className="nav-item">
-                                <Link className='nav-link active' aria-current="page" to='/images'>Images</Link>
+                                <NavLink 
+                                    className='nav-link' 
+                                    aria-current="page" 
+                                    to='/images'
+                                >
+                                    Images
+                                </NavLink>
                             </li>
                             <li className="nav-item">
                                 <button className='btn btn-outline-danger btn-rounded' onClick={ handleLogOut }>
@@ -33,10 +41,21 @@ export const Navbar = () => {
                         :
                         <ul className="navbar-nav" id="nabvarLogin">
                             <li className="nav-item">
-                                <Link className='nav-link active' aria-current="page" to='/login'>Login</Link>
+                                <NavLink 
+                                    className='nav-link' 
+                                    to='/login'
+                                >
+                                    Login
+                                </NavLink>
                             </li>
                             <li className="nav-item">
-                                <Link className='nav-link active' aria-current="page" to='/register'>Register</Link>
+                                <NavLink 
+                                    className='nav-link' 
+                                    aria-current="page" 
+                                    to='/register'
+                                >
+                                    Register
+                                </NavLink>
                             </li>
                         </ul>
                     }
