@@ -2,6 +2,7 @@ import 'dotenv/config';
 import 'colors';
 import cors from 'cors';
 import express, { Application, urlencoded, json } from 'express';
+import path from 'path';
 import { IndexRoutes } from './routes';
 
 
@@ -31,7 +32,8 @@ class Server {
     }
 
     staticFiles () {
-
+        //http://localhost:3500/uploads/image-1670421124091.png
+        this.app.use( '/uploads', express.static( path.join(process.cwd(), '/uploads') ) );
     }
 
     async startServer () {

@@ -1,4 +1,4 @@
-import { createContext, useReducer } from 'react';
+import { createContext, useEffect, useReducer } from 'react';
 
 import { IUserState } from '../interfaces/IAuthState';
 import { authReducer } from '../reducer/authReducer';
@@ -22,6 +22,18 @@ export const AuthContext = createContext<AuthContextProps>( {} as AuthContextPro
 
 export const AuthContextProvider = ( { children }: IProps ) => {
     const [ user, dispatch ] = useReducer( authReducer, initialState);
+
+    useEffect(() => {
+        const user: IUserState = JSON.parse( `${ localStorage.getItem( 'userData' ) }` );
+       //console.log(user);
+        if ( user ) {
+            dispatch({
+                type: '@login',
+                payload: user,
+            });
+        }
+    }, []);
+
     console.log( `AuthContext-authState: `, user );
     return (
         <AuthContext.Provider  value={  { user, dispatch } }>

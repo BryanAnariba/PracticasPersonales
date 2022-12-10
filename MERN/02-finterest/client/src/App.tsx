@@ -16,9 +16,12 @@ import { useAuthContext } from './hooks/auth/useAuthContext';
 // STYLES
 import 'react-toastify/dist/ReactToastify.css';
 import { Images } from './pages/images/Images';
+import { ImagePreview } from './components/ImagePreview';
 
 function App() {
   const { user } = useAuthContext();
+  //console.log( 'user', user );
+  
   return (
     <BrowserRouter>
       <Navbar />
@@ -36,6 +39,10 @@ function App() {
           <Route 
             path='/images' 
             element={ ( user.token === '' && user.userEmail === '' ) ? <Login /> : <Images /> } // SI NO HAY USUARIO LOGUEADO PARA EL LOGIN PUES
+          />
+          <Route 
+            path='/upload'
+            element={ ( user.token === '' && user.userEmail === '' ) ? <Login /> : <ImagePreview /> } // SI NO HAY USUARIO LOGUEADO PARA EL LOGIN PUES
           />
           <Route path='*' element={ <NotFound /> } />
         </Routes>

@@ -33,6 +33,15 @@ export const Navbar = () => {
                                 </NavLink>
                             </li>
                             <li className="nav-item">
+                                <NavLink 
+                                    className={({ isActive }) => { return isActive ? 'nav-link is-active' : 'nav-link' }}
+                                    aria-current="page" 
+                                    to='/upload'
+                                >
+                                    Upload New File
+                                </NavLink>
+                            </li>
+                            <li className="nav-item">
                                 <button className='btn btn-outline-danger btn-rounded' onClick={ handleLogOut }>
                                     Log Out
                                 </button>

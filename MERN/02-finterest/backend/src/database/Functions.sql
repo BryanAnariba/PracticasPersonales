@@ -10,11 +10,18 @@ BEGIN
 	RETURN @lastId 
 END;
 
-CREATE FUNCTION getLastIdFromImages()
+USE [FinterestDB]
+GO
+/****** Object:  UserDefinedFunction [dbo].[getLastIdFromImages]    Script Date: 09/12/2022 7:33:58 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER FUNCTION [dbo].[getLastIdFromImages]()
 RETURNS INT
 AS
 BEGIN
 	DECLARE @lastId INT
-	SET @lastId = (SELECT COUNT(*) + 1 FROM Image)
+	SET @lastId = (select MAX( imageId ) + 1 from [FinterestDB].[dbo].[Image])
 	RETURN @lastId 
 END;

@@ -22,3 +22,18 @@ BEGIN
 	( @lastImageId, @userId, @title, @imageDescription, @fileName, @path, @originalName, @mimeType, @size, GETDATE() );
 	SET @lastId = @lastImageId
 END;
+
+
+--EXEC SP_GETIMAGESFROMUSER 1
+CREATE OR ALTER PROCEDURE SP_GETIMAGESFROMUSER( @userId INT )
+AS
+BEGIN
+	SELECT * FROM [dbo].[Image] WHERE userId = @userId;
+END;
+
+-- EXEC SP_DELETEIMG 1,2
+CREATE OR ALTER PROCEDURE SP_DELETEIMG( @userId INT, @imageId INT )
+AS
+BEGIN
+	DELETE FROM [dbo].[Image] WHERE userId = @userId AND imageId = @imageId;
+END;

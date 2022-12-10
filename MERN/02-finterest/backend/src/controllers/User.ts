@@ -74,8 +74,7 @@ export const login = async ( req: Request, res: Response ): Promise<Response> =>
         }
 
         //  GENERAMOS EL TOKEN
-        console.log(userFound);
-        
+        //console.log(userFound);
         const token: string = await genJWT( userFound.personId );
 
         // RESPONDEMOS

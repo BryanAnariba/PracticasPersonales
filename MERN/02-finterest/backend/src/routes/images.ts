@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { upload, getFiles } from "../controllers/Image";
+import { upload, getFiles, deleteFile } from "../controllers/Image";
 import { multerMiddlewate } from "../middlewares/multer.middleware";
 import { CheckJWT } from "../middlewares/session.middleware";
 
@@ -20,6 +20,14 @@ router.get(
         CheckJWT,
     ],
     getFiles
+);
+
+router.delete(
+    '/:imageId',
+    [
+        CheckJWT,
+    ],
+    deleteFile,
 )
 export {
     router

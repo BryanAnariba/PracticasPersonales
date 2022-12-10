@@ -28,3 +28,20 @@ export const saveImage = async ( imageData: IUpload ): Promise<IImages> => {
         imageId: result.output.lastId,
     }; // SI ES CERO ES QUE NO SE INSERTO
 }
+
+export const getAllImagesFromUser = async ( userId: number ): Promise<IImages[]> => {
+    const sql = await connection();
+    const result = await sql.request()
+    .input( 'userId', Int, userId )
+    .execute( 'SP_GETIMAGESFROMUSER' );
+    return result.recordset;
+}
+
+export const deleteImageFromUser = async ( userId: number, imageId: number ): Promise<any> => {
+    const sql = await connection();
+    const result = await sql.request()
+    .input( 'userId', Int, userId )
+    .input( 'imageId', Int, imageId )
+    .execute( 'SP_DELETEIMG' );
+    return result;
+}

@@ -21,3 +21,4 @@ export const logInUser = async ( user: IUser ) => {
         body: JSON.stringify( user ),
     });
 }
+

@@ -2,8 +2,9 @@ import { Response } from "express";
 import { IUpload } from "../interfaces/IUpload";
 import { handleHttp } from '../utils/error.handle';
 import { IRequestExtend } from '../interfaces/IRequestExtend';
-import { saveImage } from "../services/image.service";
-
+import { getAllImagesFromUser, saveImage, deleteImageFromUser } from "../services/image.service";
+import pathR from 'path';
+import { unlink } from 'fs-extra';
 export const upload = async ( req: IRequestExtend, res: Response ): Promise<Response> => {
     try {
         const { body, file, user } = req;
@@ -12,7 +13,7 @@ export const upload = async ( req: IRequestExtend, res: Response ): Promise<Resp
             title: body.title,
             imageDescription: body.imageDescription,
             fileName: `${ file?.filename }`,
-            path: `${ file?.path }`,
+            path: `uploads/${ file?.filename }`,
             originalName: `${ file?.originalname }`,
             mimeType: `${ file?.mimetype }`,
             size: ( file?.size ) ? file?.size : 0
@@ -25,5 +26,26 @@ export const upload = async ( req: IRequestExtend, res: Response ): Promise<Resp
 }
 
 export const getFiles = async ( req: IRequestExtend, res: Response ): Promise<Response> => {
-    return res.status( 200 ).json({ status: 200, data: 'GET FILES WORKING' });
+    try {
+        const uid = req.user?.uid;
+        const jsonResponse = await getAllImagesFromUser( uid );
+        return res.status( 200 ).json({ status: 200, data: jsonResponse });
+    } catch ( error ) {
+        return handleHttp( 500, res, 'HTTP_GET_IMAGES_FROM_USER_ERROR', error );
+    }
+}
+
+export const deleteFile = async ( req: IRequestExtend, res: Response ): Promise<Response> => {
+    try {
+        const uid = req.user?.uid;
+        const { imageId } = req.params;
+        const { path } = req.body;
+        console.log(pathR.resolve( './' + path ));
+        
+        unlink( pathR.resolve( './' + path ) );        
+        const jsonResponse = await deleteImageFromUser( uid, Number(imageId) );
+        return res.status( 200 ).json({ status: 200, data: jsonResponse });
+    } catch ( error ) {
+        return handleHttp( 500, res, 'HTTP_GET_IMAGES_FROM_USER_ERROR', error );
+    }
 }

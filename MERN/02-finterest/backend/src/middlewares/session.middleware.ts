@@ -8,7 +8,7 @@ export const CheckJWT = ( req: IRequestExtend, res: Response, next: NextFunction
         const accessToken: string = `${ req.headers.authorization }`;
         const onlyToken: string = `${ accessToken.split( ' ' ).pop() }`; // Bearer 123123 => 123123
         const isUser = verifyJWTToken( onlyToken ) as { uid: number };
-        console.log(isUser);
+        //console.log(isUser);
         
         if ( !isUser ) {
             return handleHttp( 401, res, 'HTTP_UNAUTHORIZED_ERROR', { data: 'Unauthorized Request: You Should a valid token' });
