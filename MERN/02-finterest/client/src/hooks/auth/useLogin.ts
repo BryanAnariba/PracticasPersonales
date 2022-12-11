@@ -13,7 +13,7 @@ export const useLogin = () => {
         setIsLoading( true );
         const response = await logInUser( userData );
         const jsonResponse = await response.json();
-        console.log( 'Resultado Promesa Login: ', jsonResponse.message);
+        console.log( 'Resultado Promesa Login: ', jsonResponse);
         if ( !response.ok ) {
             setError( jsonResponse.message );
         } else {

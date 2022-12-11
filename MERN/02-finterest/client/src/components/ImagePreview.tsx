@@ -3,11 +3,13 @@ import { useState } from 'react';
 import uploadImage from '../assets/upload.png';
 import { uploadFile } from '../services/image.service';
 import { useAuthContext } from '../hooks/auth/useAuthContext';
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2'
 
 export const ImagePreview = () => {
-    const { user, dispatch } = useAuthContext();
+    const navigate = useNavigate();
+    const { user } = useAuthContext();
     const [ file, setFile ] = useState<string>('');
-    const [ dimensionWidth, setDimensionWwidth ] = useState<number>(0);
     const [ title, setTitle ] = useState<string>('');
     const [ imageDescription, setImageDescription ]  = useState<string>('');
     const [ fileUpload, setFileUpload ] = useState<any>();
@@ -65,8 +67,19 @@ export const ImagePreview = () => {
         const response = await uploadFile( formData, user.token );
         const jsonResponse = await response.json();
         console.log(jsonResponse);
+        if ( response.ok ) {
+            setTitle('');
+            setImageDescription('');
+            setFile( uploadImage );
+            navigate( '/images' );
+            Swal.fire(
+                'Ok',
+                'Upload Successfully',
+                'success'
+            )
+        }
     }
- 
+
     return (
         <div className="container">
             <div className="row">
@@ -120,8 +133,7 @@ export const ImagePreview = () => {
                                 </div>
                             </form>    
                         </div>
-                        <div className="card-footer bg-primary">
-
+                        <div className="card-footer bg-primary">                   
                         </div>
                     </div>
                 </div>

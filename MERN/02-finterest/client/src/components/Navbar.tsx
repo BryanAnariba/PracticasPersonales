@@ -2,12 +2,15 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useAuthContext } from '../hooks/auth/useAuthContext';
 import { useLogOut } from '../hooks/auth/useLogOut';
+import { useImageContext } from '../hooks/images/useImageContext';
 export const Navbar = () => {
     const { user } = useAuthContext();
+    const { dispatch } = useImageContext();
     const { logOut } = useLogOut();
     const handleLogOut = () => {
         console.log( `Handle Logout Works` );
         logOut();
+        dispatch({ type: '@get', payload: [] });
     }
     return (
         <nav className="navbar navbar-expand-lg bg-dark navbar-dark">

@@ -1,5 +1,5 @@
 body {
-  background: #6190E8;  /* fallback for old browsers */
+  background: #F0F2F5 /* fallback for old browsers */
   /* background: -webkit-linear-gradient(to right, #A7BFE8, #6190E8);
   background: linear-gradient(to right, #A7BFE8, #6190E8); */
 }
@@ -15,6 +15,10 @@ body {
 nav a.is-active {
   font-weight: bold;
   pointer-events: none;
+}
+
+.centra-elemento { 
+  margin: auto;
 }
 
 .lds-facebook {
@@ -117,9 +121,7 @@ nav a.is-active {
 .loader::after {
   width: 85%;
   height: 85%;
-  background-color: #6190E8;  /* fallback for old browsers */
-  background-color: -webkit-linear-gradient(to right, #A7BFE8, #6190E8);  /* Chrome 10-25, Safari 5.1-6 */
-  background-color: linear-gradient(to right, #A7BFE8, #6190E8); 
+  background-color: #CFE2FF;  /* fallback for old browsers */ 
   transform: translate(-50%,-50%);
   top: 50%;
   left: 50%;

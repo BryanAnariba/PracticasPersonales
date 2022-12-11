@@ -40,7 +40,8 @@ export const deleteFile = async ( req: IRequestExtend, res: Response ): Promise<
         const uid = req.user?.uid;
         const { imageId } = req.params;
         const { path } = req.body;
-        console.log(pathR.resolve( './' + path ));
+        //console.log(path);
+        //console.log(pathR.resolve( './' + path ));
         
         unlink( pathR.resolve( './' + path ) );        
         const jsonResponse = await deleteImageFromUser( uid, Number(imageId) );
