@@ -1,0 +1,13 @@
+1 - Creacion del tsconfig.json => tsc --init 
+2 - Inicializar proyecto de node => npm init --yes
+3 - Instalacion de dependencias
+    express
+    cors
+    multer
+    dotenv
+    bcryptjs
+    jsonwebtoken
+    npm install express cors multer dotenv bcryptjs jsonwebtoken --save
+15
+4 - Instalacion de dependencias de tipados
+    npm install @types/express @types/cors @types/multer @types/dotenv @types/bcryptjs @types/jsonwebtoken --save-dev
